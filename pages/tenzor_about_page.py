@@ -6,14 +6,14 @@ class TenzorAboutPage(BasePage):
         super().__init__(browser, url)
 
     def should_be_work_block(self):
-        assert self.is_element_present(TenzorAboutPageLocators.BLOCK_WORK), "block work is not !!!"
+        assert self.is_element_present(TenzorAboutPageLocators.BLOCK_WORK), "block work is not !"
         block_work = self.browser.find_element(*TenzorAboutPageLocators.BLOCK_WORK)
-        self.browser.execute_script(" return arguments[0].scrollIntoView();", block_work)
+        self.scroll_to_element(block_work)
 
     def should_be_height_and_weight_photos_in_work_block(self):
-        ''' бетаааа '''
-        assert self.is_element_present(TenzorAboutPageLocators.PHOTOS), 'not photos !!!!'
+        assert self.is_element_present(TenzorAboutPageLocators.PHOTOS), 'not photos !'
         photos = self.browser.find_elements(*TenzorAboutPageLocators.PHOTOS)
+        assert len(photos)==4, "count photos must have 4"
         first_height = photos[0].get_attribute("height")
         first_width = photos[0].get_attribute("width")
 

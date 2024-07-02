@@ -12,7 +12,6 @@ def browser():
 @pytest.fixture(scope='function')
 def browser_d():
     current_directory = os.getcwd()
-    print("Текущий рабочий каталог:", current_directory)
     options = webdriver.ChromeOptions()
     prefs = {
         "download.default_directory": current_directory,
