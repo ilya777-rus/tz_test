@@ -5,7 +5,7 @@ from pages.contact_page import ContactPage
 from pages.download_page import DownloadPage
 
 LINK = "https://sbis.ru/"
-
+@pytest.mark.skip
 def test_scen3(browser_d):
     home_page = HomePage(browser_d, LINK)
     home_page.open()

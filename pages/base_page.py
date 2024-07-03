@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
 from .utils import FileDownloadComplete
 
+
 class BasePage:
     def __init__(self, browser, url):
         self.browser = browser
@@ -34,7 +35,7 @@ class BasePage:
             el = WebDriverWait(self.browser, time).until(EC.text_to_be_present_in_element(locator, text))
             return el
         except TimeoutException as e:
-            print('G',e.msg)
+            print('G', e.msg)
             return False
 
     def alert(self):
@@ -44,7 +45,7 @@ class BasePage:
         except TimeoutException as e:
             print("Errror alert ", str(e))
 
-    def complete_download_file(self, download_directory ,known_files,time=8):
+    def complete_download_file(self, download_directory, known_files, time=8):
         try:
             file_download_wait = WebDriverWait(self.browser, time).until(
                 FileDownloadComplete(download_directory, known_files)
@@ -54,7 +55,7 @@ class BasePage:
             else:
                 return False
         except TimeoutException as e:
-            print('error',e.msg)
+            print('error', e.msg)
             return False
         return new_file_path
 
@@ -72,9 +73,16 @@ class BasePage:
 
     def pop_up_delete(self, locator):
         try:
-            element = WebDriverWait(self.browser, 10).until(
+            WebDriverWait(self.browser, 10).until(
                 EC.presence_of_element_located(locator)
             )
-            self.browser.execute_script("arguments[0].parentNode.removeChild(arguments[0]);", element)
-        except TimeoutException as e:
-            print(e)
+
+            self.browser.execute_script("""
+                var element = document.getElementsByClassName('tensor_ru-CookieAgreement')[0];
+                if (element) {
+                    element.parentNode.removeChild(element);
+                }
+            """)
+            print("Элемент был удален.")
+        except Exception as e:
+            print("Не удалось удалить элемент:", str(e))

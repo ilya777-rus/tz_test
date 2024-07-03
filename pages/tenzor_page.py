@@ -13,18 +13,29 @@ class TeznzorPage(BasePage):
         assert self.url=="https://tensor.ru/", "url not correct !"
 
     def should_be_block_power_in_people(self):
-        assert self.is_element_present(TenzorPageLocators.BLOCK_POWER_IN_PEOPLE), "NOT BLOCKKK"
-        block_element = self.browser.find_element(*TenzorPageLocators.BLOCK_POWER_IN_PEOPLE)
-        self.scroll_to_element(block_element)
+        try:
+            assert self.is_element_present(TenzorPageLocators.BLOCK_POWER_IN_PEOPLE), "NOT BLOCKKK"
+            block_element = self.browser.find_element(*TenzorPageLocators.BLOCK_POWER_IN_PEOPLE)
+            self.scroll_to_element(block_element)
+        except StaleElementReferenceException as e:
+            assert self.is_element_present(TenzorPageLocators.BLOCK_POWER_IN_PEOPLE), "NOT BLOCKKK"
+            block_element = self.browser.find_element(*TenzorPageLocators.BLOCK_POWER_IN_PEOPLE)
+            self.scroll_to_element(block_element)
 
     def should_be_link_detailed_click(self):
-        assert self.is_element_present(TenzorPageLocators.LINK_DETAILED), "not link is detailed"
-        self.pop_up_delete(TenzorPageLocators.POPUP)
-        self.hide_preload_overlay()
-        el = self.el_click(TenzorPageLocators.LINK_DETAILED)
-        el.click()
-        self.switch_to_current_window()
-        assert self.browser.current_url=="https://tensor.ru/about", "not cotrrect url about"
+        try:
+            assert self.is_element_present(TenzorPageLocators.LINK_DETAILED), "not link is detailed"
+            self.pop_up_delete(TenzorPageLocators.POPUP)
+            self.hide_preload_overlay()
+            el = self.el_click(TenzorPageLocators.LINK_DETAILED)
+            el.click()
+            self.switch_to_current_window()
+            assert self.browser.current_url=="https://tensor.ru/about", "not cotrrect url about"
+        except StaleElementReferenceException as e:
+            el = self.el_click(TenzorPageLocators.LINK_DETAILED)
+            el.click()
+            self.switch_to_current_window()
+            assert self.browser.current_url == "https://tensor.ru/about", "not cotrrect url about"
 
     def hide_preload_overlay(self):
         try:

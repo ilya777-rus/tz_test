@@ -1,11 +1,9 @@
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
 import time
-
 
 locations1 = [
     {"name": "СБИС - Уфа", "address": "ул. Октябрьской Революции, д. 78"},
@@ -27,8 +25,6 @@ locations2 = [
 ]
 
 
-
-
 class FileDownloadComplete:
     def __init__(self, download_dir, known_files):
         self.download_dir = download_dir
@@ -42,4 +38,3 @@ class FileDownloadComplete:
             self.new_file = new_files.pop()
             return self.new_file
         return False
-

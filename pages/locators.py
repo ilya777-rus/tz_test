@@ -18,7 +18,7 @@ class DownloadPageLocators:
 class TenzorPageLocators:
     BLOCK_POWER_IN_PEOPLE = (By.CSS_SELECTOR, ".tensor_ru-Index__block4-content ")
     LINK_DETAILED = (By.CSS_SELECTOR, ".tensor_ru-Index__block4-content  .tensor_ru-link.tensor_ru-Index__link")
-    POPUP = (By.XPATH, "//noindex")
+    POPUP = (By.CLASS_NAME, "tensor_ru-CookieAgreement")
     OVERLAY = (By.CSS_SELECTOR, "div.preload-overlay[name='loadingOverlay']")
 
 class TenzorAboutPageLocators:

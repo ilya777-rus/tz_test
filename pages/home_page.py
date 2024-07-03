@@ -11,9 +11,11 @@ class HomePage(BasePage):
     def should_be_click_contact_link(self):
         try:
             assert self.is_element_present(HomePageLocators.CONTACT_LINK), "contac link is not  !"
-            self.el_click(HomePageLocators.CONTACT_LINK).click()
+            el = self.el_click(HomePageLocators.CONTACT_LINK)
+            el.click()
         except  StaleElementReferenceException as e:
-            print("PEREHVATT", str(e))
+            print("Erroor ", str(e))
+            self.el_click(HomePageLocators.CONTACT_LINK).click()
 
 
 
